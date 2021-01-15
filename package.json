@@ -1,0 +1,22 @@
+{
+  "name": "DALY66",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec node src/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cloudflare-scraper": "^1.0.7",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "memory-cache": "^0.2.0",
+    "mongoose": "^5.11.12",
+    "puppeteer": "^5.5.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
+}
