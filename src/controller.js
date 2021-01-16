@@ -85,7 +85,7 @@ const transferAccount = async(cookieCl,userArgent,cookieUser,userReceive,amount,
     const resultTranfer = await request(options);
     return resultTranfer ;
 }
-const findHistoryAgent =async(cookieCl,userArgent,cookieUser,fromDate,toDate)=>{
+const findHistoryAgentSend =async(cookieCl,userArgent,cookieUser,fromDate,toDate)=>{
     const options={
         method:"post",
         url:"https://daily66.club/api/Agency/FindHistoryAgent",
@@ -95,9 +95,28 @@ const findHistoryAgent =async(cookieCl,userArgent,cookieUser,fromDate,toDate)=>{
             'Content-Type': 'application/json'
         },
         body:JSON.stringify({
-            Fromdate:"01/15/2021",
-            Todate:"01/15/2021",
+            Fromdate:fromDate,
+            Todate:toDate,
             Type:2,
+            Typeserch:1
+        })
+    }
+    const resultHistoryAgent = await request(options);
+    return JSON.parse( resultHistoryAgent );
+}
+const findHistoryAgentReceive =async(cookieCl,userArgent,cookieUser,fromDate,toDate)=>{
+    const options={
+        method:"post",
+        url:"https://daily66.club/api/Agency/FindHistoryAgent",
+        headers:{
+            'User-Agent':userArgent,
+            cookie:cookieCl+";"+cookieUser,
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+            Fromdate:fromDate,
+            Todate:toDate,
+            Type:1,
             Typeserch:1
         })
     }
@@ -109,5 +128,6 @@ module.exports ={
     getCookieCloudflare,
     getUserData,
     transferAccount,
-    findHistoryAgent
+    findHistoryAgentSend,
+    findHistoryAgentReceive
 }
