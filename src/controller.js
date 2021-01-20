@@ -200,9 +200,7 @@ const getInfoAccount = async(cookieCl,userArgent,cookieUser,proxy)=>{
         },
         proxy:proxy
     }
-    console.log(options);
     const resultInfo = await request(options);
-    console.log(resultInfo);
     return JSON.parse( resultInfo );
 }
 module.exports ={
