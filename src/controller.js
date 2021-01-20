@@ -189,11 +189,28 @@ const findHistoryAgentReceive =async(cookieCl,userArgent,cookieUser,fromDate,toD
     const resultHistoryAgent = await request(options);
     return JSON.parse( resultHistoryAgent );
 }
+const getInfoAccount = async(cookieCl,userArgent,cookieUser,proxy)=>{
+    const options={
+        method:"get",
+        url:"https://daily66.club/api/Authen/GetAccountInfo",
+        headers:{
+            'User-Agent':userArgent,
+            cookie:cookieCl+cookieUser,
+            'Content-Type': 'application/json'
+        },
+        proxy:proxy
+    }
+    console.log(options);
+    const resultInfo = await request(options);
+    console.log(resultInfo);
+    return JSON.parse( resultInfo );
+}
 module.exports ={
     loginUserGetCookie,
     getCookieCloudflare,
     getUserData,
     transferAccount,
     findHistoryAgentSend,
-    findHistoryAgentReceive
+    findHistoryAgentReceive,
+    getInfoAccount
 }
