@@ -49,7 +49,7 @@ const getCookieCloudflare=async(proxy)=>{
     const page = await browser.newPage();
     await page.setUserAgent(USER_ARGENT);
     await page.authenticate();
-    await page.goto("https://daily66.club/",{
+    await page.goto("https://daily88.club/",{
         timeout:45000,
         waitUntil: 'domcontentloaded'
     })
@@ -82,7 +82,7 @@ const getCookieCloudflare=async(proxy)=>{
 const loginUserGetCookie=async(cookie, userArgent,username,password,otp,proxy)=>{
     const options ={
         method:"post",
-        url:"https://daily66.club/api/Authen/login",
+        url:"https://daily88.club/api/Authen/login",
         headers:{
             'User-Agent':userArgent,
             cookie:cookie,
@@ -133,7 +133,7 @@ const getUserData=(username)=>{
 const transferAccount = async(cookieCl,userArgent,cookieUser,userReceive,amount,reason,proxy)=>{
     const options={
         method:"post",
-        url:"https://daily66.club/api/Payment/TranferAccount",
+        url:"https://daily88.club/api/Payment/TranferAccount",
         headers:{
             'User-Agent':userArgent,
             cookie:cookieCl+";"+cookieUser,
@@ -152,7 +152,7 @@ const transferAccount = async(cookieCl,userArgent,cookieUser,userReceive,amount,
 const findHistoryAgentSend =async(cookieCl,userArgent,cookieUser,fromDate,toDate,proxy)=>{
     const options={
         method:"post",
-        url:"https://daily66.club/api/Agency/FindHistoryAgent",
+        url:"https://daily88.club/api/Agency/FindHistoryAgent",
         headers:{
             'User-Agent':userArgent,
             cookie:cookieCl+";"+cookieUser,
@@ -172,7 +172,7 @@ const findHistoryAgentSend =async(cookieCl,userArgent,cookieUser,fromDate,toDate
 const findHistoryAgentReceive =async(cookieCl,userArgent,cookieUser,fromDate,toDate,proxy)=>{
     const options={
         method:"post",
-        url:"https://daily66.club/api/Agency/FindHistoryAgent",
+        url:"https://daily88.club/api/Agency/FindHistoryAgent",
         headers:{
             'User-Agent':userArgent,
             cookie:cookieCl+";"+cookieUser,
@@ -192,7 +192,7 @@ const findHistoryAgentReceive =async(cookieCl,userArgent,cookieUser,fromDate,toD
 const getInfoAccount = async(cookieCl,userArgent,cookieUser,proxy)=>{
     const options={
         method:"get",
-        url:"https://daily66.club/api/Authen/GetAccountInfo",
+        url:"https://daily88.club/api/Authen/GetAccountInfo",
         headers:{
             'User-Agent':userArgent,
             cookie:cookieCl+cookieUser,
@@ -203,6 +203,24 @@ const getInfoAccount = async(cookieCl,userArgent,cookieUser,proxy)=>{
     const resultInfo = await request(options);
     return JSON.parse( resultInfo );
 }
+const tranferAccountConfirm =async(cookieCl,userArgent,cookieUser,otp,proxy)=>{
+    const options={
+        method:"post",
+        url:"http://daily88.club/api/Payment/TranferAccountConfirm",
+        headers:{
+            'User-Agent':userArgent,
+            cookie:cookieCl+cookieUser,
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+            otp:otp,
+            OtpType:1
+        }),
+        proxy:proxy
+    }
+    const resultConfirm = await request(options);
+    return JSON.parse( resultConfirm );
+}
 module.exports ={
     loginUserGetCookie,
     getCookieCloudflare,
@@ -210,5 +228,6 @@ module.exports ={
     transferAccount,
     findHistoryAgentSend,
     findHistoryAgentReceive,
-    getInfoAccount
+    getInfoAccount,
+    tranferAccountConfirm
 }

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {getCookieCloudflare,loginUserGetCookie,getUserData,transferAccount,findHistoryAgentSend,
-    findHistoryAgentReceive,getInfoAccount} = require('./controller');
+    findHistoryAgentReceive,getInfoAccount,tranferAccountConfirm} = require('./controller');
 const moment = require("moment");
 require("dotenv").config();
 const USER_ARGENT=process.env.USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36";
@@ -93,6 +93,23 @@ router.post("/user-account",async(req,res)=>{
         console.log(cookieCloudflare);
         const resultAccountInfo = await getInfoAccount(cookieCloudflare,USER_ARGENT,userSend.cookie,proxy);
         res.status(200).json({data:resultAccountInfo});
+    } catch (error) {
+        res.status(400).json({error:error.toString()});
+    }
+})
+router.post("/tranfer-account-confirm",async(req,res)=>{
+    try {
+        const {username,proxy,otp}=req.body;
+        if(username==undefined || otp==undefined ){
+            throw "Lỗi Thiếu Data" ;
+        }
+        const userSend = await getUserData(username);
+        if(!userSend){
+            throw "user send do not have data";
+        }
+        const cookieCloudflare = await getCookieCloudflare(proxy);
+        const resultConfirm = await tranferAccountConfirm(cookieCloudflare,USER_ARGENT,userSend.cookie,otp,proxy);
+        res.status(200).json({data:resultConfirm});
     } catch (error) {
         res.status(400).json({error:error.toString()});
     }
